@@ -12,6 +12,7 @@ import {NzMessageService} from 'ng-zorro-antd';
 })
 export class RouteComponent implements OnInit {
   isVisible = false;
+  editId = null;
   listOfData = [
   ];
   validateForm: FormGroup;
@@ -22,38 +23,41 @@ export class RouteComponent implements OnInit {
 
   ngOnInit() {
     this.validateForm = this.fb.group({
-      key: [null],
+      name: [null, [Validators.required]],
+      createdDate: [null, [Validators.required]],
+      content: [null, [Validators.required]],
+      code: [null, [Validators.required]],
+
     /*  key: [null, [Validators.required]],*/
     });
+
     this.find();
+
   }
 
   find() {
     this.routeService.queryListForPage().subscribe(res => {
-      console.log(res);
       this.listOfData = res.list;
     });
   }
   delete(data?) {
-    console.log(data);
     this.routeService.delete(data.id).subscribe((res: any) => {
-        // this.nzMessageService.create(res.message);
-        console.log(9568);
+         this.nzMessageService.success(res.message);
+         this.find();
     });
   }
 
 
   showModal(): void {
+    this.validateForm.reset();
     this.isVisible = true;
   }
-
-  handleOk(): void {
-    console.log('Button ok clicked!');
-    this.isVisible = false;
+  updateModel(data?) {
+    this.editId = data.id;
+    this.validateForm.patchValue(data);
+    this.isVisible = true;
   }
-
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
 
@@ -63,10 +67,21 @@ export class RouteComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-
- /*   if (!this.validateForm.valid) {
+    if (!this.validateForm.valid) {
       return false;
-    }*/
+    }
+    const data = this.validateForm.value;
+
+    data.id = this.editId;
+    data.createdDate = new Date(data.createdDate).getTime();
+
+    this.routeService.add(data).subscribe(res => {
+      this.nzMessageService.success( res.message);
+      this.isVisible = false;
+      this.find();
+    }, err => {
+        this.nzMessageService.error(`${err.error.errorMessage}`);
+    });
   }
   confirm() {
 

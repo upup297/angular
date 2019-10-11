@@ -17,11 +17,12 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RouteComponent } from './route/route.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { TesComponent } from './tes/tes.component';
 
 registerLocaleData(zh);
 
 @NgModule({
-  declarations: [AppComponent, DemoComponent, RouteComponent],
+  declarations: [AppComponent, DemoComponent, RouteComponent, TesComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

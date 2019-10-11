@@ -4,6 +4,7 @@ import { DemoComponent } from "./demo/demo.component";
 import { RouteComponent } from "./route/route.component";
 import { YzLayoutComponent, ActGuard, DisplayIndexComponent } from "yunzai8";
 import { SimpleErrorComponent } from "yunzai8";
+import {TesComponent} from './tes/tes.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
       
 
       { path: "displayIndex", component: DisplayIndexComponent },
-      { path: "error/:status/:desc", component: SimpleErrorComponent }
+      { path: "error/:status/:desc", component: SimpleErrorComponent },
+      { path: 'tes', component: TesComponent}
     ]
   }
 ];

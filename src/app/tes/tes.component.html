@@ -1,0 +1,66 @@
+<div class="default-router">
+  <button nz-button [nzType]="'primary'" (click)="showModal()" class="btn"><span>Show Modal</span></button>
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+    <tr>
+      <th>创建日期</th>
+      <th>名称</th>
+      <th>Code</th>
+      <th>content</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.createdDate | date:"yyyy-MM-dd"}}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.code }}</td>
+      <td>{{ data.content }}</td>
+      <td>
+        <a
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure?"
+          nzOkText="Yes"
+          nzCancelText="No"
+          (nzOnConfirm)="delete(data)"
+          (nzOnCancel)="cancel()"
+        >刪除</a
+        >
+
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="update(data)">修改</a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="短信模板管理" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm()">
+    <form nz-form [formGroup]="validateForm" >
+      <nz-form-item>
+        <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired nzFor="createdDate">时间</nz-form-label>
+        <nz-form-control [nzSm]="16" [nzXs]="24">
+          <nz-date-picker formControlName="createdDate"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired nzFor="name">名稱</nz-form-label>
+        <nz-form-control  [nzSpan]="12" >
+          <input type="text" nz-input formControlName="name">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired nzFor="code">code</nz-form-label>
+        <nz-form-control  [nzSpan]="12" >
+          <input type="text" nz-input formControlName="code">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5" nzRequired nzFor="content">內容</nz-form-label>
+        <nz-form-control  [nzSpan]="12" >
+          <input type="text" nz-input formControlName="content">
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-modal>
+</div>

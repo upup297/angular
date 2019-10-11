@@ -6,9 +6,9 @@
     <thead>
       <tr>
         <th>姓名</th>
-        <th>時間</th>
-        <th>描述</th>
-        <th>狀態</th>
+        <th>时间</th>
+        <th>内容</th>
+        <th>状态</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -22,51 +22,53 @@
           <a
             nz-popconfirm
             nzPopconfirmTitle="您确认要删除吗？"
-            nzPopconfirmPlacement="bottom"
+            nzPopconfirmPlacement="top"
             (nzOnConfirm)="delete(data)"
             (nzOnCancel)="confirm()"
           >删除</a>
           <nz-divider nzType="vertical"></nz-divider>
-          <a (click)="showModal()">修改</a>
+          <a (click)="updateModel(data)">修改</a>
         </td>
       </tr>
     </tbody>
   </nz-table>
 
 </div>
-<nz-modal [(nzVisible)]="isVisible" nzTitle="用户信息" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="短信模板管理" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm()">
   <form nz-form [formGroup]="validateForm">
     <nz-form-item>
       <nz-form-label [nzSpan]="5" nzRequired nzFor="name">姓名</nz-form-label>
       <nz-form-control [nzSpan]="16">
-        <input  type="text" nz-input formControlName="key">
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzRequired nzFor="age">描述</nz-form-label>
-      <nz-form-control [nzSpan]="16">
-        <input  type="text" nz-input formControlName="key">
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzRequired nzFor="address">狀態</nz-form-label>
-      <nz-form-control [nzSpan]="16">
-        <input  type="text" nz-input formControlName="key">
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzRequired nzFor="address">内容</nz-form-label>
-      <nz-form-control [nzSpan]="16">
-        <input  type="text" nz-input formControlName="key">
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzRequired nzFor="address">alicode</nz-form-label>
-      <nz-form-control [nzSpan]="16">
-        <input  type="text" nz-input formControlName="key">
+        <input  type="text" nz-input formControlName="name">
       </nz-form-control>
     </nz-form-item>
 
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="5" [nzXs]="24" nzRequired nzFor="createdDate">时间</nz-form-label>
+      <nz-form-control [nzSm]="16" [nzXs]="24">
+        <nz-date-picker formControlName="createdDate"></nz-date-picker>
+      </nz-form-control>
+
+  <!--    <nz-form-control [nzSm]="16" [nzXs]="24">
+        <nz-date-picker nzShowTime formControlName="createdDate"></nz-date-picker>
+      </nz-form-control>-->
+    </nz-form-item>
+
+
+
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired nzFor="content">内容</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <input  type="text" nz-input formControlName="content">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="5" nzRequired nzFor="code">状态</nz-form-label>
+      <nz-form-control [nzSpan]="16">
+        <input  type="text" nz-input formControlName="code">
+      </nz-form-control>
+    </nz-form-item>
 
 
   </form>
